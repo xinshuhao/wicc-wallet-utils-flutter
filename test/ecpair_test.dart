@@ -130,6 +130,8 @@ NETWORKS.NetworkType _getNetwork(f) {
       network = NETWORKS.bitcoin;
     } else if (f['network'] == 'testnet') {
       network = NETWORKS.testnet;
+    } else if (f['network'] == 'wiccTestnet') {
+      network = NETWORKS.wiccTestnet;
     }
   }
   return network;
