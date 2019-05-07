@@ -4,17 +4,21 @@ import 'package:flutter_wicc/src/payments/p2pkh.dart';
 import 'package:flutter_wicc/src/models/networks.dart';
 import 'package:test/test.dart';
 import 'package:flutter_wicc/src/waykichain.dart';
-void main(){
- test('generate wicc test net addresses', () {//生成地址
-   var mn="raven uncle myself wedding start skate chase accuse usage often accuse blush";
-   var address= getAddressFromMnemonic(mn,wiccMainnet);
-   print(address);
- });
+import '../lib/src/models/networks.dart' as NETWORKS;
+import 'package:flutter_wicc/bitcoin_flutter.dart';
+import 'package:hex/hex.dart';
 
- test(' generate privateKey', () {//生成私钥
-   var mn="raven uncle myself wedding start skate chase accuse usage often accuse blush";
-   var address= getAddressFromMnemonic(mn,wiccTestnet);
-   print(address);
- });
+void main() {
+  test('generate wicc test net addresses', () { //生成地址
+    var mn = "raven uncle myself wedding start skate chase accuse usage often accuse blush";
+    var address = getAddressFromMnemonic(mn, wiccMainnet);
+    print(address);
+  });
+
+  test(' generate privateKey', () { //生成私钥
+    var mn = "raven uncle myself wedding start skate chase accuse usage often accuse blush";
+    var privateKay = getPrivateKeyFromMnemonic(mn, wiccTestnet);
+    print(privateKay);
+  });
 }
 

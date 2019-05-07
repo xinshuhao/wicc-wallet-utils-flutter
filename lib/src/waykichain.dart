@@ -2,6 +2,7 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:flutter_wicc/src/payments/p2pkh.dart';
 import 'package:flutter_wicc/src/models/networks.dart';
+import 'ecpair.dart' show ECPair;
 
 String getAddressFromMnemonic(mn,network) {//助记词转地址
   var seed = bip39.mnemonicToSeed(mn);
@@ -20,7 +21,18 @@ String getAddressFromMnemonic(mn,network) {//助记词转地址
 
 
 String getPrivateKeyFromMnemonic(mn,network){
-
+  var seed = bip39.mnemonicToSeed(mn);
+  final node = bip32.BIP32.fromSeed(seed);
+  final string = node.toBase58();
+  final restored = bip32.BIP32.fromBase58(string);
+  final child1b = restored
+      .deriveHardened(44)
+      .deriveHardened(99999)
+      .deriveHardened(0)
+      .derive(0)
+      .derive(0);
+  var ecPair=ECPair.fromPrivateKey(child1b.privateKey,network:wiccTestnet,compressed:true);
+  return ecPair.toWIF();
 }
 
 String getAddress(node, [network]) {
