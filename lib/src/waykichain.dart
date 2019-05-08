@@ -35,6 +35,12 @@ String getPrivateKeyFromMnemonic(mn,network){
   return ecPair.toWIF();
 }
 
+String getAddressFromPrivateKey(String privateKey,network){
+  final keyPair = ECPair.fromWIF(privateKey,network: network);
+  final address = new P2PKH(data: new P2PKHData(pubkey: keyPair.publicKey),network: network).data.address;
+  return address;
+}
+
 String getAddress(node, [network]) {
   return P2PKH(data: new P2PKHData(pubkey: node.publicKey), network: network)
       .data

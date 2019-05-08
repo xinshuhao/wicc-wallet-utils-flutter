@@ -18,7 +18,12 @@ void main() {
   test(' generate privateKey', () { //生成私钥
     var mn = "raven uncle myself wedding start skate chase accuse usage often accuse blush";
     var privateKay = getPrivateKeyFromMnemonic(mn, wiccTestnet);
-    print(privateKay);
+     print(privateKay);
+  });
+
+  test(' generate address from privateKey', () { //私钥生成地址
+    var address = getAddressFromPrivateKey("YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA", wiccTestnet);
+    print(address);
   });
 }
 
