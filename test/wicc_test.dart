@@ -25,5 +25,10 @@ void main() {
     var address = getAddressFromPrivateKey("YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA", wiccTestnet);
     print(address);
   });
+
+  test(' sign common transaction', () { //签名生成交易
+    var address = getAddressFromPrivateKey("YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA", wiccTestnet);
+    print(address);
+  });
 }
 

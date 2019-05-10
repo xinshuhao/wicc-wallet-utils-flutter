@@ -19,7 +19,6 @@ String getAddressFromMnemonic(mn,network) {//助记词转地址
   return address;
 }
 
-
 String getPrivateKeyFromMnemonic(mn,network){
   var seed = bip39.mnemonicToSeed(mn);
   final node = bip32.BIP32.fromSeed(seed);
