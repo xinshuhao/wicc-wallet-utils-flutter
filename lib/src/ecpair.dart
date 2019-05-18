@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'dart:math';
 import 'package:bip32/src/utils/ecurve.dart' as ecc;
 import 'package:bip32/src/utils/wif.dart' as wif;
+import 'package:flutter_wicc/src/type/WaykiNetWorkType.dart';
 import 'models/networks.dart';
 
 class ECPair {
@@ -50,7 +51,11 @@ class ECPair {
         nw = bitcoin;
       } else if (version == testnet.wif) {
         nw = testnet;
-      } else {
+      } else if (version == wiccTestnet.wif) {
+        nw = wiccTestnet;
+      }else if (version == wiccMainnet.wif) {
+        nw = wiccMainnet;
+      }else {
         throw new ArgumentError("Unknown network version");
       }
     }

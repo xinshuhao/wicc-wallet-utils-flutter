@@ -1,7 +1,7 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:flutter_wicc/src/payments/p2pkh.dart';
-import 'package:flutter_wicc/src/models/networks.dart';
+import 'package:flutter_wicc/src/type/WaykiNetWorkType.dart';
 import 'ecpair.dart' show ECPair;
 
 String getAddressFromMnemonic(mn,network) {//助记词转地址

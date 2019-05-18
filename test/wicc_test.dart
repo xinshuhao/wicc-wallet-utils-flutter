@@ -1,12 +1,8 @@
-import 'package:bip39/bip39.dart' as bip39;
-import 'package:bip32/bip32.dart' as bip32;
-import 'package:flutter_wicc/src/payments/p2pkh.dart';
-import 'package:flutter_wicc/src/models/networks.dart';
+
+import 'package:flutter_wicc/src/params/WaykiCommonTxParams.dart';
+import 'package:flutter_wicc/src/type/WaykiNetWorkType.dart';
 import 'package:test/test.dart';
 import 'package:flutter_wicc/src/waykichain.dart';
-import '../lib/src/models/networks.dart' as NETWORKS;
-import 'package:flutter_wicc/bitcoin_flutter.dart';
-import 'package:hex/hex.dart';
 
 void main() {
   test('generate wicc test net addresses', () { //生成地址
@@ -27,8 +23,15 @@ void main() {
   });
 
   test(' sign common transaction', () { //签名生成交易
-    var address = getAddressFromPrivateKey("YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA", wiccTestnet);
-    print(address);
+    Map map=Map<String,Object>();
+    map["networks"]=wiccTestnet;
+    map["nVersion"]=1;
+    map["nValidHeight"]=926165;
+    map["nTxType"]=3;
+    map["privateKey"]="YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA";
+    WaykiCommonsTxParams patams= WaykiCommonsTxParams.fromDictionary(map);
+    patams.signTx();
+    patams.serializeTx();
   });
 }
 
