@@ -3,6 +3,7 @@ import 'package:flutter_wicc/bitcoin_flutter.dart';
 import 'package:flutter_wicc/src/crypto.dart';
 import 'package:flutter_wicc/src/models/networks.dart' as NETWORKS;
 import 'package:flutter_wicc/src/params/BaseSignTxParams.dart';
+import 'package:flutter_wicc/src/payments/p2pkh.dart';
 import 'package:flutter_wicc/src/utils/BufferWriter.dart';
 import 'package:hex/hex.dart';
 import 'package:bs58check/bs58check.dart' as bs58check;
@@ -16,10 +17,11 @@ class WaykiCommonsTxParams extends BaseSignTxParams {
 
   WaykiCommonsTxParams.fromDictionary(Map map) : super.fromDictionary(map) {
     this.networks = map["networks"];
-    this.value = map["value"];
+    this.value    = map["value"];
     this.srcRegId = map["srcRegId"];
     this.destAddr = map["destAddr"];
-    destAddress=bs58check.decode(this.destAddr);
+    destAddress=new P2PKH(data: new P2PKHData(address: this.destAddr),
+        network: networks).data.output;
   }
 
   @override
