@@ -22,7 +22,7 @@ abstract class BaseSignTxParams {
     this.privateKey = map["privateKey"];
   }
 
-  List<int> getSignatureHash();
+  Uint8List getSignatureHash();
 
   Uint8List signTx();
 

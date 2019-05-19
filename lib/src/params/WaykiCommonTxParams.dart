@@ -3,53 +3,70 @@ import 'package:flutter_wicc/bitcoin_flutter.dart';
 import 'package:flutter_wicc/src/crypto.dart';
 import 'package:flutter_wicc/src/models/networks.dart' as NETWORKS;
 import 'package:flutter_wicc/src/params/BaseSignTxParams.dart';
-import 'package:flutter_wicc/src/transaction_builder.dart';
-import 'package:flutter_wicc/src/type/WaykiTxType.dart';
-import 'package:bip32/src/utils/wif.dart' as wif;
-import 'package:flutter_wicc/src/utils/varuint.dart';
-import 'package:flutter_wicc/src/utils/wicc_encode.dart';
+import 'package:flutter_wicc/src/utils/BufferWriter.dart';
 import 'package:hex/hex.dart';
+import 'package:bs58check/bs58check.dart' as bs58check;
 
 class WaykiCommonsTxParams extends BaseSignTxParams {
   NETWORKS.NetworkType networks;
   int value;
   String srcRegId;
   String destAddr;
+  Uint8List destAddress;
 
   WaykiCommonsTxParams.fromDictionary(Map map) : super.fromDictionary(map) {
     this.networks = map["networks"];
     this.value = map["value"];
     this.srcRegId = map["srcRegId"];
     this.destAddr = map["destAddr"];
+    destAddress=bs58check.decode(this.destAddr);
   }
 
   @override
-  List<int> getSignatureHash() {
-    List<int> uint8list = List<int>();
-    uint8list.addAll(encodeInWicc(nVersion));
-    uint8list.addAll(encodeInWicc(nTxType));
-    uint8list.addAll(encodeInWicc(4));
-    return uint8list;
+  Uint8List getSignatureHash() {
+    BufferWriter write=new BufferWriter();
+    write.writeInt(nVersion);
+    write.writeInt(nTxType);
+    write.writeInt(nValidHeight);
+    write.writeRegId(srcRegId);
+    write.writeInt(destAddress.length);
+    write.writeByte(destAddress);
+    write.writeInt(fees);
+    write.writeInt(value);
+    write.writeInt(0);
+    write.writeInt(null);
+    var hash=hash256(hash256(write.encodeByte()));
+    return hash;
   }
 
   @override
   String serializeTx() {
-    List<int> uint8list = List<int>();
-    uint8list.addAll(encodeInWicc(nTxType));
-    uint8list.addAll(encodeInWicc(nVersion));
-    uint8list.addAll(encodeInWicc(nValidHeight));
-    String str = HEX.encode(Uint8List.fromList(uint8list).buffer.asUint8List());
-    print(str);
-    return str;
+    BufferWriter write=new BufferWriter();
+    write.writeInt(nTxType);
+    write.writeInt(nVersion);
+    write.writeInt(nValidHeight);
+    write.writeRegId(srcRegId);
+    write.writeInt(destAddress.length);
+    write.writeByte(destAddress);
+    write.writeInt(fees);
+    write.writeInt(value);
+    write.writeInt(0);
+    write.writeInt(null);
+    write.writeInt(signature.length);
+    write.writeByte(signature);
+    String hexStr = HEX.encode(write.encodeByte());
+    print(hexStr);
+    return hexStr;
   }
 
   @override
   Uint8List signTx() {
     var sigHash = this.getSignatureHash();
     final keyPair = ECPair.fromWIF(privateKey, network: this.networks);
-    var ecSig = keyPair.sign(hash256(hash256(
-      Uint8List.fromList(sigHash).buffer.asUint8List()
-    )));
-    return ecSig.buffer.asUint8List();
+    var ecSig = keyPair.sign(
+      sigHash
+    );
+    signature=ecSig.buffer.asUint8List();
+    return signature;
   }
 }

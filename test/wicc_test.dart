@@ -26,8 +26,12 @@ void main() {
     Map map=Map<String,Object>();
     map["networks"]=wiccTestnet;
     map["nVersion"]=1;
-    map["nValidHeight"]=926165;
+    map["nValidHeight"]=429637;
+    map["fees"]=100660;
     map["nTxType"]=3;
+    map["value"]=100000000;
+    map["srcRegId"]="926152-1";
+    map["destAddr"]="wQEgCG7vUuL2BHsZohQsRf6R4JGPucQq4t";
     map["privateKey"]="YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA";
     WaykiCommonsTxParams patams= WaykiCommonsTxParams.fromDictionary(map);
     patams.signTx();
