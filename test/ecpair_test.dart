@@ -1,4 +1,3 @@
-import 'package:flutter_wicc/src/type/WaykiNetWorkType.dart';
 import 'package:test/test.dart';
 import 'package:hex/hex.dart';
 import 'dart:typed_data';
@@ -131,8 +130,6 @@ NETWORKS.NetworkType _getNetwork(f) {
       network = NETWORKS.bitcoin;
     } else if (f['network'] == 'testnet') {
       network = NETWORKS.testnet;
-    } else if (f['network'] == 'wiccTestnet') {
-      network = wiccTestnet;
     }
   }
   return network;

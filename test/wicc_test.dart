@@ -1,41 +1,135 @@
 
-import 'package:flutter_wicc/src/params/WaykiCommonTxParams.dart';
-import 'package:flutter_wicc/src/type/WaykiNetWorkType.dart';
-import 'package:test/test.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:crypto/crypto.dart';
+import 'package:flutter_wicc/src/ecpair.dart';
+import 'package:flutter_wicc/src/params/deploy_contract_tx_param.dart';
+import 'package:flutter_wicc/src/params/wayki_common_tx_params.dart';
+import 'package:flutter_wicc/src/params/wayki_contract_tx_parames.dart';
+import 'package:flutter_wicc/src/params/wayki_delegate_tx_parames.dart';
+import 'package:flutter_wicc/src/params/wayki_register_tx_params.dart';
+import 'package:flutter_wicc/src/type/wayki_net_type.dart';
+import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
+import 'package:flutter_wicc/src/type/wayki_tx_type.dart';
 import 'package:flutter_wicc/src/waykichain.dart';
+import 'package:hex/hex.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('generate wicc test net addresses', () { //生成地址
     var mn = "raven uncle myself wedding start skate chase accuse usage often accuse blush";
-    var address = getAddressFromMnemonic(mn, wiccMainnet);
+    var address = WaykiChain.getAddressFromMnemonic(mn, wiccMainnet);
     print(address);
   });
 
   test(' generate privateKey', () { //生成私钥
     var mn = "raven uncle myself wedding start skate chase accuse usage often accuse blush";
-    var privateKay = getPrivateKeyFromMnemonic(mn, wiccTestnet);
+    var privateKay = WaykiChain.getPrivateKeyFromMnemonic(mn, wiccTestnet);
      print(privateKay);
   });
 
   test(' generate address from privateKey', () { //私钥生成地址
-    var address = getAddressFromPrivateKey("YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA", wiccTestnet);
+    //"YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA"
+    final privateKay="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
+    var address = WaykiChain.getAddressFromPrivateKey(privateKay, wiccTestnet);
     print(address);
   });
 
+  test("register transaction", () {//注册签名
+    WaykiTxRegisterModel model=new WaykiTxRegisterModel();
+    model.networks=wiccTestnet;
+    model.baseModel.nValidHeight=429821;
+    model.baseModel.fees=1000;
+    model.baseModel.privateKey="Y9XMqNzseQFSK32SvMDNF9J7xz1CQmHRsmY1hMYiqZyTck8pYae3";
+    WaykiRegisterTxParams params=new WaykiRegisterTxParams.fromDictionary(model);
+    params.signTx();
+    params.serializeTx();
+  });
+
   test(' sign common transaction', () { //签名生成交易
-    Map map=Map<String,Object>();
-    map["networks"]=wiccTestnet;
-    map["nVersion"]=1;
-    map["nValidHeight"]=429637;
-    map["fees"]=100660;
-    map["nTxType"]=3;
-    map["value"]=100000000;
-    map["srcRegId"]="926152-1";
-    map["destAddr"]="wQEgCG7vUuL2BHsZohQsRf6R4JGPucQq4t";
-    map["privateKey"]="YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA";
+    WaykiTxCommonModel  map=new WaykiTxCommonModel();
+    map.baseModel.nValidHeight=429637;
+    map.baseModel.fees=100660;
+    map.baseModel.privateKey="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
+    map.value=100000000;
+    map.destAddr="wh82HNEDZkZP2eVAS5t7dDxmJWqyx9gr65";
+    map.networks=wiccTestnet;
+    map.srcRegId="423318-1";
     WaykiCommonsTxParams patams= WaykiCommonsTxParams.fromDictionary(map);
     patams.signTx();
     patams.serializeTx();
   });
+
+  test(' sign Contract transaction', () { //签名智能合约生成交易
+    WaykiTxContractModel  map=new WaykiTxContractModel();
+    map.baseModel.nValidHeight=494454;
+    map.baseModel.fees=100000;
+    map.baseModel.privateKey="PhKmEa3M6BJERHdStG7nApRwURDnN3W48rhrnnM1fVKbLs3jaYd6";
+    map.value=100000000;
+    map.networks=wiccMainnet;
+    map.srcRegId="926152-1";
+    map.appId="450687-1";
+    map.contract="f20200e1f50500000000";
+    WaykiContractTxParams patams= WaykiContractTxParams.fromDictionary(map);
+    patams.signTx();
+    patams.serializeTx();
+  });
+
+  test(' sign Delegate transaction', () { //投票生成交易
+    WaykiTxDelegateModel  map=new WaykiTxDelegateModel();
+    map.baseModel.nValidHeight=479874;
+    map.baseModel.fees=10000000;
+    map.baseModel.privateKey="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
+    map.networks=wiccTestnet;
+    map.srcRegId="25813-1";
+    map.listDunds=new List<OperVoteFund>();
+    final fund1=new OperVoteFund();
+    fund1.voteValue=200000000;
+    //获得投票的用户的公钥
+    fund1.pubKey=Uint8List.fromList(HEX.decode("03145134d18bbcb1da64adb201d1234f57b3daee8bb7d0bcbe7c27b53edadcab59")).buffer.asUint8List();
+    fund1.voteType=VoteOperType.MINUS_FUND;//取消投票
+    map.listDunds.add(fund1);
+    WaykiDelegateTxParams patams= WaykiDelegateTxParams.fromDictionary(map);
+    patams.signTx();
+    patams.serializeTx();
+  });
+
+  test(' sign deploy contract transaction', () { //生成部署合约签名
+    File file=new File('d://hello.lua');
+    //file.writeAsBytes(byteData.buffer.asInt8List(0));
+    Uint8List aa=Uint8List.fromList(file.readAsBytesSync()).buffer.asUint8List();
+    //Uint8List aa=Uint8List.fromList().buffer.asUint8List();
+    WaykiTxDeployContractModel model=WaykiTxDeployContractModel();
+    model.script=aa;
+    model.description="My hello contract!!!";
+    model.baseModel.nValidHeight=20999;
+    model.srcRegId="7849-1";
+    model.baseModel.fees=110000000;
+    model.networks=wiccTestnet;
+    model.baseModel.privateKey="Y9sx4Y8sBAbWDAqAWytYuUnJige3ZPwKDZp1SCDqqRby1YMgRG9c";
+    WaykiDeployContractTxParams params=new WaykiDeployContractTxParams.fromDictionary(model);
+    params.signTx();
+    params.serializeTx();
+
+  });
+
+  test('vertify message', () { //消息签名与验证
+    var privateKey="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
+    //"Y9XMqNzseQFSK32SvMDNF9J7xz1CQmHRsmY1hMYiqZyTck8pYae3";
+    final keyPair = ECPair.fromWIF(privateKey, network: wiccTestnet);
+    var msg = "Waykichain";
+    var msgHash=Sha256x2(Uint8List.fromList(msg.codeUnits).buffer.asUint8List());
+    var signMsg=keyPair.sign(msgHash);
+    var pubKey=Uint8List.fromList(HEX.decode("03145134d18bbcb1da64adb201d1234f57b3daee8bb7d0bcbe7c27b53edadcab59")).buffer.asUint8List();
+    var ecPublicKey=ECPair.fromPublicKey(pubKey,network: wiccTestnet,compressed:true);
+    var vertifySuccess= ecPublicKey.verify(msgHash, signMsg);
+    print("验证成功?"+vertifySuccess.toString());
+  });
+
 }
 
+Uint8List Sha256x2(Uint8List buffer) {
+  Digest tmp = sha256.newInstance().convert(buffer.toList());
+  final signList=Uint8List.fromList(sha256.newInstance().convert(tmp.bytes).bytes).buffer.asUint8List();
+  return signList;
+}

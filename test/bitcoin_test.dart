@@ -1,4 +1,4 @@
-import 'package:flutter_wicc/bitcoin_flutter.dart';
+import 'package:flutter_wicc/src/bitcoin_flutter.dart';
 import 'package:test/test.dart';
 import 'package:bip39/bip39.dart' as bip39;
 
