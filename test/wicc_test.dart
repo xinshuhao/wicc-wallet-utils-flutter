@@ -96,11 +96,9 @@ void main() {
 
   test(' sign deploy contract transaction', () { //生成部署合约签名
     File file=new File('d://hello.lua');
-    //file.writeAsBytes(byteData.buffer.asInt8List(0));
-    Uint8List aa=Uint8List.fromList(file.readAsBytesSync()).buffer.asUint8List();
-    //Uint8List aa=Uint8List.fromList().buffer.asUint8List();
+    Uint8List buffer=file.readAsBytesSync();
     WaykiTxDeployContractModel model=WaykiTxDeployContractModel();
-    model.script=aa;
+    model.script=buffer;
     model.description="My hello contract!!!";
     model.baseModel.nValidHeight=20999;
     model.srcRegId="7849-1";

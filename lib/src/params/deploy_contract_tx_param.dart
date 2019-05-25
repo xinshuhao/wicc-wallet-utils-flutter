@@ -12,7 +12,7 @@ class WaykiDeployContractTxParams extends BaseSignTxParams {
   int value;
   String srcRegId;
   String description;
-  Uint8List script;
+  List<int> script;
   WaykiDeployContractTxParams.fromDictionary(WaykiTxDeployContractModel model) : super.fromDictionary(model.baseModel) {
     this.networks = model.networks;
     this.srcRegId = model.srcRegId;
@@ -23,12 +23,12 @@ class WaykiDeployContractTxParams extends BaseSignTxParams {
   @override
   Uint8List getSignatureHash() {
     BufferWriter write=new BufferWriter();
-    write.writeInt(nVersion);
-    write.writeInt(nTxType);
-    write.writeInt(nValidHeight);
-    write.writeRegId(srcRegId);
-    write.writeContractScript(script, description);
-    write.writeInt(fees);
+    write.writeInt(nVersion)
+        .writeInt(nTxType)
+        .writeInt(nValidHeight)
+        .writeRegId(srcRegId)
+        .writeContractScript(script, description)
+        .writeInt(fees);
     var hash=Sha256x2(write.encodeByte());
     return hash;
   }
@@ -36,14 +36,14 @@ class WaykiDeployContractTxParams extends BaseSignTxParams {
   @override
   String serializeTx() {
     BufferWriter write=new BufferWriter();
-    write.writeInt(nTxType);
-    write.writeInt(nVersion);
-    write.writeInt(nValidHeight);
-    write.writeRegId(srcRegId);
-    write.writeContractScript(script, description);
-    write.writeInt(fees);
-    write.writeInt(signature.length);
-    write.writeByte(signature);
+    write.writeInt(nTxType)
+    .writeInt(nVersion)
+    .writeInt(nValidHeight)
+    .writeRegId(srcRegId)
+    .writeContractScript(script, description)
+    .writeInt(fees)
+    .writeInt(signature.length)
+    .writeByte(signature);
     String hexStr = HEX.encode(write.encodeByte());
     print(hexStr);
     return hexStr;

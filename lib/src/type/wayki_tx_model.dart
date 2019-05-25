@@ -73,7 +73,7 @@ class WaykiTxDeployContractModel {
   NETWORKS.NetworkType networks;
   String srcRegId;
   String description;
-  Uint8List script;
+  List<int> script;
   WaykiTxBaseModel baseModel;
 
   WaykiTxDeployContractModel() {

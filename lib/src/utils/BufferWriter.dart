@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
+import 'package:flutter_wicc/src/utils/writer.dart';
 
 class BufferWriter {
   List<int> buffer;
@@ -58,19 +59,45 @@ class BufferWriter {
   }
 
 
-  BufferWriter writeContractScript(Uint8List script,String description) {
+  BufferWriter writeContractScript(List<int> script,String description) {
     List<int> bytes = new List<int>();
-    var descriptions=Uint8List.fromList(description.codeUnits).buffer.asUint8List();
-    var scripten=encodeInWicc(script.length);
-    var descriptionsen=encodeInWicc(descriptions.length);
-    bytes.addAll(encodeInWicc(script.length+scripten.length+
-        descriptionsen.length+descriptions.length));
-    bytes.addAll(scripten);
-    bytes.addAll(script.toList());
-    bytes.addAll(descriptionsen);
-    bytes.addAll(descriptions);
-    buffer.addAll(bytes);
+
+    if(script.length<253){
+      bytes.add(script.length);
+    }else if(script.length<=65536){
+      bytes.add(253);
+      bytes.addAll(hexToBytes(script.length.toRadixString(16)).reversed);
+    }
+    bytes.addAll(script);
+    bytes.addAll(encodeInWicc(description.length));
+    bytes.addAll(description.codeUnits);
+
+    List<int> allbytes = new List<int>();
+
+    if(bytes.length<253){
+      allbytes.add(bytes.length);
+    }else if(bytes.length<=65536){
+      allbytes.add(253);
+      allbytes.addAll(hexToBytes(bytes.length.toRadixString(16)).reversed);
+    }
+    allbytes.addAll(bytes);
+    buffer.addAll(allbytes);
     return this;
+  }
+
+  String _BYTE_ALPHABET = "0123456789abcdef";
+  Uint8List hexToBytes(String hex) {
+    hex = hex.replaceAll(" ", "");
+    hex = hex.toLowerCase();
+    if (hex.length % 2 != 0) hex = "0" + hex;
+    Uint8List result = new Uint8List(hex.length ~/ 2);
+    for (int i = 0; i < result.length; i++) {
+      int value = (_BYTE_ALPHABET.indexOf(hex[i * 2]) << 4) //= byte[0] * 16
+          +
+          _BYTE_ALPHABET.indexOf(hex[i * 2 + 1]);
+      result[i] = value;
+    }
+    return result;
   }
 
 }
