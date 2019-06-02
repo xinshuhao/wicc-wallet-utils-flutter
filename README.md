@@ -1,2 +1,2 @@
 # wicc-wallet-utils-flutter
-wicc wallet utils
+wicc-wallet-utils-flutter
