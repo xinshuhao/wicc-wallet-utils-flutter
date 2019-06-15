@@ -1,40 +1,29 @@
 import 'dart:typed_data';
 
-import 'package:crypto/crypto.dart';
+import 'package:flutter_wicc/src/bip32/bitcoin_bip32.dart';
 import 'package:flutter_wicc/src/bitcoin_flutter.dart';
 import 'package:flutter_wicc/src/payments/p2pkh.dart';
 import 'package:flutter_wicc/src/utils/script.dart';
-import 'package:bip39/bip39.dart' as bip39;
-import 'package:bip32/bip32.dart' as bip32;
+import 'package:flutter_wicc/src/bip39/bip39.dart' as bip39;
+import 'package:hex/hex.dart';
+import 'package:flutter_wicc/src/utils/util.dart';
 class WaykiChain{
 
   static String getAddressFromMnemonic(mn,network) {//助记词转地址
     var seed = bip39.mnemonicToSeed(mn);
-    final node = bip32.BIP32.fromSeed(seed);
-    final string = node.toBase58();
-    final restored = bip32.BIP32.fromBase58(string);
-    final child1b = restored
-        .deriveHardened(44)
-        .deriveHardened(99999)
-        .deriveHardened(0)
-        .derive(0)
-        .derive(0);
-    final address = getAddress(child1b, network);
+    Chain  chain=Chain.seed(HEX.encode(seed));
+    ExtendedPrivateKey key = chain.forPath("m/44'/99999'/0'/0/0");
+    String address=P2PKH(data: new P2PKHData(pubkey: key.publicKey().q.getEncoded()), network: network)
+        .data
+        .address;
     return address;
   }
 
   static String getPrivateKeyFromMnemonic(mn,network){
     var seed = bip39.mnemonicToSeed(mn);
-    final node = bip32.BIP32.fromSeed(seed);
-    final string = node.toBase58();
-    final restored = bip32.BIP32.fromBase58(string);
-    final child1b = restored
-        .deriveHardened(44)
-        .deriveHardened(99999)
-        .deriveHardened(0)
-        .derive(0)
-        .derive(0);
-    var ecPair=ECPair.fromPrivateKey(child1b.privateKey,network:network,compressed:true);
+    Chain  chain=Chain.seed(HEX.encode(seed));
+    ExtendedPrivateKey key = chain.forPath("m/44'/99999'/0'/0/0");
+    var ecPair=ECPair.fromPrivateKey(hexToBytes(key.key.toRadixString(16)),network:network,compressed:true);
     return ecPair.toWIF();
   }
 
@@ -42,12 +31,6 @@ class WaykiChain{
     final keyPair = ECPair.fromWIF(privateKey,network: network);
     final address = new P2PKH(data: new P2PKHData(pubkey: keyPair.publicKey),network: network).data.address;
     return address;
-  }
-
- static String getAddress(node, [network]) {
-    return P2PKH(data: new P2PKHData(pubkey: node.publicKey), network: network)
-        .data
-        .address;
   }
   
   static Uint8List signTx(sigHash,privateKey,network){

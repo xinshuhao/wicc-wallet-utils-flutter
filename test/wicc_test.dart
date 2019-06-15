@@ -17,20 +17,20 @@ import 'package:test/test.dart';
 
 void main() {
   test('generate wicc test net addresses', () { //生成地址
-    var mn = "raven uncle myself wedding start skate chase accuse usage often accuse blush";
+    var mn ="raven uncle myself wedding start skate chase accuse usage often accuse blush";
     var address = WaykiChain.getAddressFromMnemonic(mn, wiccMainnet);
     print(address);
   });
 
   test(' generate privateKey', () { //生成私钥
-    var mn = "raven uncle myself wedding start skate chase accuse usage often accuse blush";
-    var privateKay = WaykiChain.getPrivateKeyFromMnemonic(mn, wiccTestnet);
+    var mn = "evil idle happy pattern humor antenna digital fold glance genius wasp heart";//"raven uncle myself wedding start skate chase accuse usage often accuse blush";
+    var privateKay = WaykiChain.getPrivateKeyFromMnemonic(mn, wiccMainnet);
      print(privateKay);
   });
 
   test(' generate address from privateKey', () { //私钥生成地址
     //"YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA"
-    final privateKay="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
+    final privateKay="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";//"Y9sx4Y8sBAbWDAqAWytYuUnJige3ZPwKDZp1SCDqqRby1YMgRG9c";//"YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
     var address = WaykiChain.getAddressFromPrivateKey(privateKay, wiccTestnet);
     print(address);
   });
@@ -38,8 +38,8 @@ void main() {
   test("register transaction", () {//注册签名
     WaykiTxRegisterModel model=new WaykiTxRegisterModel();
     model.networks=wiccTestnet;
-    model.baseModel.nValidHeight=429821;
-    model.baseModel.fees=1000;
+    model.baseModel.nValidHeight=456539;
+    model.baseModel.fees=10000;
     model.baseModel.privateKey="Y9XMqNzseQFSK32SvMDNF9J7xz1CQmHRsmY1hMYiqZyTck8pYae3";
     WaykiRegisterTxParams params=new WaykiRegisterTxParams.fromDictionary(model);
     params.signTx();
@@ -48,13 +48,13 @@ void main() {
 
   test(' sign common transaction', () { //签名生成交易
     WaykiTxCommonModel  map=new WaykiTxCommonModel();
-    map.baseModel.nValidHeight=429637;
+    map.baseModel.nValidHeight=638097;
     map.baseModel.fees=100660;
     map.baseModel.privateKey="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
     map.value=100000000;
     map.destAddr="wh82HNEDZkZP2eVAS5t7dDxmJWqyx9gr65";
     map.networks=wiccTestnet;
-    map.srcRegId="423318-1";
+    map.srcRegId="441753-2";
     WaykiCommonsTxParams patams= WaykiCommonsTxParams.fromDictionary(map);
     patams.signTx();
     patams.serializeTx();
@@ -100,8 +100,8 @@ void main() {
     WaykiTxDeployContractModel model=WaykiTxDeployContractModel();
     model.script=buffer;
     model.description="My hello contract!!!";
-    model.baseModel.nValidHeight=20999;
-    model.srcRegId="7849-1";
+    model.baseModel.nValidHeight=638097;
+    model.srcRegId="456751-1";
     model.baseModel.fees=110000000;
     model.networks=wiccTestnet;
     model.baseModel.privateKey="Y9sx4Y8sBAbWDAqAWytYuUnJige3ZPwKDZp1SCDqqRby1YMgRG9c";

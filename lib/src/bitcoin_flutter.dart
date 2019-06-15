@@ -3,7 +3,6 @@
 /// More dartdocs go here.
 library bitcoin_flutter;
 
-export 'bitcoin_flutter_base.dart';
 export 'models/networks.dart';
 export 'transaction.dart';
 export 'transaction_builder.dart';

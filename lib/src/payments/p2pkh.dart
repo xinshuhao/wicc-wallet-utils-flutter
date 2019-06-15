@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:meta/meta.dart';
-import 'package:bip32/src/utils/ecurve.dart' show isPoint;
+import 'package:flutter_wicc/src/bip32/src/ecurve.dart' show isPoint;
 import 'package:bs58check/bs58check.dart' as bs58check;
 
 import '../crypto.dart';
@@ -98,11 +98,11 @@ class P2PKHData {
   Uint8List input;
   P2PKHData(
       {this.address,
-      this.hash,
-      this.output,
-      this.pubkey,
-      this.input,
-      this.signature});
+        this.hash,
+        this.output,
+        this.pubkey,
+        this.input,
+        this.signature});
 
   @override
   String toString() {
