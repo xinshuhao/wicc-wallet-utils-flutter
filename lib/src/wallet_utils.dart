@@ -9,7 +9,12 @@ import 'package:hex/hex.dart';
 import 'package:flutter_wicc/src/utils/util.dart';
 class WaykiChain{
 
-  static String getAddressFromMnemonic(mn,network) {//助记词转地址
+  static String getMnemonic() {
+    var mn = bip39.generateMnemonic(strength: 128);
+    return mn;
+  }
+
+   static  String getAddressFromMnemonic(mn,network) {//助记词转地址
     var seed = bip39.mnemonicToSeed(mn);
     Chain  chain=Chain.seed(HEX.encode(seed));
     ExtendedPrivateKey key = chain.forPath("m/44'/99999'/0'/0/0");

@@ -1,7 +1,8 @@
 import 'dart:typed_data';
-import 'package:crypto/crypto.dart';
 import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
 import 'package:flutter_wicc/src/type/wayki_tx_type.dart';
+import 'package:flutter_wicc/src/utils/crypto/digest.dart';
+import 'package:flutter_wicc/src/utils/crypto/sha256.dart';
 
 abstract class BaseSignTxParams {
   Uint8List userPubKey;

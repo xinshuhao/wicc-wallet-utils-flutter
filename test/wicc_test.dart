@@ -1,23 +1,9 @@
-
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:crypto/crypto.dart';
-import 'package:flutter_wicc/src/ecpair.dart';
-import 'package:flutter_wicc/src/params/deploy_contract_tx_param.dart';
-import 'package:flutter_wicc/src/params/wayki_common_tx_params.dart';
-import 'package:flutter_wicc/src/params/wayki_contract_tx_parames.dart';
-import 'package:flutter_wicc/src/params/wayki_delegate_tx_parames.dart';
-import 'package:flutter_wicc/src/params/wayki_register_tx_params.dart';
-import 'package:flutter_wicc/src/type/wayki_net_type.dart';
-import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
-import 'package:flutter_wicc/src/type/wayki_tx_type.dart';
-import 'package:flutter_wicc/src/waykichain.dart';
-import 'package:hex/hex.dart';
+import 'package:flutter_wicc/flutter_wicc.dart';
 import 'package:test/test.dart';
 
 void main() {
   test('generate wicc test net addresses', () { //生成地址
-    var mn ="raven uncle myself wedding start skate chase accuse usage often accuse blush";
+    var mn ="evil idle happy pattern humor antenna digital fold glance genius wasp heart";//"raven uncle myself wedding start skate chase accuse usage often accuse blush";
     var address = WaykiChain.getAddressFromMnemonic(mn, wiccMainnet);
     print(address);
   });
@@ -25,7 +11,7 @@ void main() {
   test(' generate privateKey', () { //生成私钥
     var mn = "evil idle happy pattern humor antenna digital fold glance genius wasp heart";//"raven uncle myself wedding start skate chase accuse usage often accuse blush";
     var privateKay = WaykiChain.getPrivateKeyFromMnemonic(mn, wiccMainnet);
-     print(privateKay);
+    print(privateKay);
   });
 
   test(' generate address from privateKey', () { //私钥生成地址
@@ -100,7 +86,7 @@ void main() {
     WaykiTxDeployContractModel model=WaykiTxDeployContractModel();
     model.script=buffer;
     model.description="My hello contract!!!";
-    model.baseModel.nValidHeight=638097;
+    model.baseModel.nValidHeight=681247;
     model.srcRegId="456751-1";
     model.baseModel.fees=110000000;
     model.networks=wiccTestnet;

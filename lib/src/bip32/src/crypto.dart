@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
-import "package:convert/convert.dart";
+import 'package:hex/hex.dart';
 import "package:pointycastle/api.dart";
 import "package:pointycastle/macs/hmac.dart";
 import "package:pointycastle/digests/sha256.dart";
@@ -47,11 +46,11 @@ const int firstHardenedChild = 0x80000000;
 
 /// The 4 version bytes for the private key serialization as defined in the
 /// BIP21 spec
-final Uint8List privateKeyVersion = hex.decode("0488ADE4");
+final Uint8List privateKeyVersion = HEX.decode("0488ADE4");
 
 /// The 4 version bytes for the public key serialization as defined in the
 /// BIP21 spec
-final Uint8List publicKeyVersion = hex.decode("0488B21E");
+final Uint8List publicKeyVersion = HEX.decode("0488B21E");
 
 /// From the BIP32 spec. Used when calculating the hmac of the seed
 final Uint8List masterKey = utf8.encoder.convert("Bitcoin seed");

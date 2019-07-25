@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter_wicc/src/models/networks.dart' as NETWORKS;
 import 'package:flutter_wicc/src/params/basesign_tx_params.dart';
 import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
-import 'package:flutter_wicc/src/waykichain.dart';
+import 'package:flutter_wicc/src/wallet_utils.dart';
 import 'package:flutter_wicc/src/utils/BufferWriter.dart';
 import 'package:hex/hex.dart';
 

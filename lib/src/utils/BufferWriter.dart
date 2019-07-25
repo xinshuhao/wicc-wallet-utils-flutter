@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
-import 'package:flutter_wicc/src/utils/writer.dart';
 
 class BufferWriter {
   List<int> buffer;

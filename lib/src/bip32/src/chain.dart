@@ -1,6 +1,5 @@
 import 'dart:typed_data';
-
-import "package:convert/convert.dart";
+import 'package:hex/hex.dart';
 
 import "crypto.dart";
 import "exceptions.dart";
@@ -18,7 +17,7 @@ class Chain {
 
   /// Create a chain based on a hex seed.
   Chain.seed(String seed) {
-    Uint8List seedBytes = hex.decoder.convert(seed);
+    Uint8List seedBytes = HEX.decoder.convert(seed);
     root = ExtendedPrivateKey.master(seedBytes);
   }
 
