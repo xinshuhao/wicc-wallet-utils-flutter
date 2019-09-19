@@ -8,13 +8,13 @@ void main() {
     print(address);
   });
 
-  test(' generate privateKey', () { //生成私钥
+  test('generate privateKey', () { //生成私钥
     var mn = "evil idle happy pattern humor antenna digital fold glance genius wasp heart";//"raven uncle myself wedding start skate chase accuse usage often accuse blush";
     var privateKay = WaykiChain.getPrivateKeyFromMnemonic(mn, wiccMainnet);
     print(privateKay);
   });
 
-  test(' generate address from privateKey', () { //私钥生成地址
+  test('generate address from privateKey', () { //私钥生成地址
     //"YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA"
     final privateKay="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";//"Y9sx4Y8sBAbWDAqAWytYuUnJige3ZPwKDZp1SCDqqRby1YMgRG9c";//"YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
     var address = WaykiChain.getAddressFromPrivateKey(privateKay, wiccTestnet);
@@ -28,11 +28,11 @@ void main() {
     model.baseModel.fees=10000;
     model.baseModel.privateKey="Y9XMqNzseQFSK32SvMDNF9J7xz1CQmHRsmY1hMYiqZyTck8pYae3";
     WaykiRegisterTxParams params=new WaykiRegisterTxParams.fromDictionary(model);
-    params.signTx();
-    params.serializeTx();
+    String tx= params.signTx();
+     print(tx);
   });
 
-  test(' sign common transaction', () { //签名生成交易
+  test('sign common transaction', () { //签名生成交易
     WaykiTxCommonModel  map=new WaykiTxCommonModel();
     map.baseModel.nValidHeight=638097;
     map.baseModel.fees=100660;
@@ -41,12 +41,12 @@ void main() {
     map.destAddr="wh82HNEDZkZP2eVAS5t7dDxmJWqyx9gr65";
     map.networks=wiccTestnet;
     map.srcRegId="441753-2";
-    WaykiCommonsTxParams patams= WaykiCommonsTxParams.fromDictionary(map);
-    patams.signTx();
-    patams.serializeTx();
+    WaykiCommonsTxParams params= WaykiCommonsTxParams.fromDictionary(map);
+    String tx= params.signTx();
+    print(tx);
   });
 
-  test(' sign Contract transaction', () { //签名智能合约生成交易
+  test('sign Contract transaction', () { //签名智能合约生成交易
     WaykiTxContractModel  map=new WaykiTxContractModel();
     map.baseModel.nValidHeight=494454;
     map.baseModel.fees=100000;
@@ -56,12 +56,12 @@ void main() {
     map.srcRegId="926152-1";
     map.appId="450687-1";
     map.contract="f20200e1f50500000000";
-    WaykiContractTxParams patams= WaykiContractTxParams.fromDictionary(map);
-    patams.signTx();
-    patams.serializeTx();
+    WaykiContractTxParams params= WaykiContractTxParams.fromDictionary(map);
+    String tx= params.signTx();
+    print(tx);
   });
 
-  test(' sign Delegate transaction', () { //投票生成交易
+  test('sign Delegate transaction', () { //投票生成交易
     WaykiTxDelegateModel  map=new WaykiTxDelegateModel();
     map.baseModel.nValidHeight=479874;
     map.baseModel.fees=10000000;
@@ -75,13 +75,13 @@ void main() {
     fund1.pubKey=Uint8List.fromList(HEX.decode("03145134d18bbcb1da64adb201d1234f57b3daee8bb7d0bcbe7c27b53edadcab59")).buffer.asUint8List();
     fund1.voteType=VoteOperType.MINUS_FUND;//取消投票
     map.listDunds.add(fund1);
-    WaykiDelegateTxParams patams= WaykiDelegateTxParams.fromDictionary(map);
-    patams.signTx();
-    patams.serializeTx();
+    WaykiDelegateTxParams params= WaykiDelegateTxParams.fromDictionary(map);
+    String tx= params.signTx();
+    print(tx);
   });
 
-  test(' sign deploy contract transaction', () { //生成部署合约签名
-    File file=new File('d://hello.lua');
+  test('sign deploy contract transaction', () { //生成部署合约签名
+    File file=new File('hello.lua');
     Uint8List buffer=file.readAsBytesSync();
     WaykiTxDeployContractModel model=WaykiTxDeployContractModel();
     model.script=buffer;
@@ -92,9 +92,8 @@ void main() {
     model.networks=wiccTestnet;
     model.baseModel.privateKey="Y9sx4Y8sBAbWDAqAWytYuUnJige3ZPwKDZp1SCDqqRby1YMgRG9c";
     WaykiDeployContractTxParams params=new WaykiDeployContractTxParams.fromDictionary(model);
-    params.signTx();
-    params.serializeTx();
-
+    String tx= params.signTx();
+    print(tx);
   });
 
   test('vertify message', () { //消息签名与验证

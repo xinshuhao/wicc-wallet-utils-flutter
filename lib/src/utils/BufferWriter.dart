@@ -59,29 +59,35 @@ class BufferWriter {
 
 
   BufferWriter writeContractScript(List<int> script,String description) {
-    List<int> bytes = new List<int>();
 
-    if(script.length<253){
-      bytes.add(script.length);
-    }else if(script.length<=65536){
-      bytes.add(253);
-      bytes.addAll(hexToBytes(script.length.toRadixString(16)).reversed);
-    }
-    bytes.addAll(script);
-    bytes.addAll(encodeInWicc(description.length));
-    bytes.addAll(description.codeUnits);
+    BufferWriter writer=new BufferWriter();
+    writer.writeCompactSize(script.length);
+    writer.writeByte(Uint8List.fromList(script).buffer.asUint8List());
+    writer.writeCompactSize(description.length);
+    writer.writeByte(Uint8List.fromList(description.codeUnits).buffer.asUint8List());
 
-    List<int> allbytes = new List<int>();
-
-    if(bytes.length<253){
-      allbytes.add(bytes.length);
-    }else if(bytes.length<=65536){
-      allbytes.add(253);
-      allbytes.addAll(hexToBytes(bytes.length.toRadixString(16)).reversed);
-    }
-    allbytes.addAll(bytes);
-    buffer.addAll(allbytes);
+    this.writeCompactSize(writer.buffer.length);
+    this.writeByte(Uint8List.fromList(writer.buffer).buffer.asUint8List());
     return this;
+  }
+
+  ByteData data=new ByteData(0);
+
+  void writeCompactSize(int len){
+
+    if(len<253){
+     buffer.add(len);
+    } else if (len < 0x10000) {
+      buffer.add(253);
+      buffer.addAll(hexToBytes(len.toRadixString(16)).reversed);
+    } else if (len < 0x100000000) {
+      buffer.add(254);
+      buffer.addAll(hexToBytes(len.toRadixString(32)).reversed);
+    }else {
+      buffer.add(255);
+      buffer.addAll(hexToBytes(len.toRadixString(64)).reversed);
+    }
+
   }
 
   String _BYTE_ALPHABET = "0123456789abcdef";

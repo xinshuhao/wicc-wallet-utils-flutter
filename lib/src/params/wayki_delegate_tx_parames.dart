@@ -43,15 +43,6 @@ class WaykiDelegateTxParams extends BaseSignTxParams {
     write.writeInt(signature.length);
     write.writeByte(signature);
     String hexStr = HEX.encode(write.encodeByte());
-    print(hexStr);
     return hexStr;
   }
-
-  @override
-  Uint8List signTx() {
-    var sigHash = this.getSignatureHash();
-    signature= WaykiChain.signTx(sigHash, privateKey, this.networks);
-    return signature;
-  }
-
 }

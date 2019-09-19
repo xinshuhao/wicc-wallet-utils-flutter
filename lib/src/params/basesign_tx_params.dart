@@ -3,8 +3,11 @@ import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
 import 'package:flutter_wicc/src/type/wayki_tx_type.dart';
 import 'package:flutter_wicc/src/utils/crypto/digest.dart';
 import 'package:flutter_wicc/src/utils/crypto/sha256.dart';
+import 'package:flutter_wicc/src/wallet_utils.dart';
+import 'package:flutter_wicc/src/models/networks.dart' as NETWORKS;
 
 abstract class BaseSignTxParams {
+  NETWORKS.NetworkType networks;
   Uint8List userPubKey;
   Uint8List minerPubKey;
   int nValidHeight = 0;
@@ -46,7 +49,12 @@ abstract class BaseSignTxParams {
 
   Uint8List getSignatureHash();
 
-  Uint8List signTx();
-
   String serializeTx();
+
+  String signTx() {
+    var sigHash = this.getSignatureHash();
+    signature= WaykiChain.signTx(sigHash, privateKey, this.networks);
+    String txHash=serializeTx();
+    return txHash;
+  }
 }

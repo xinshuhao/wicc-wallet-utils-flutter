@@ -1,14 +1,11 @@
 
 import 'dart:typed_data';
-import 'package:flutter_wicc/src/models/networks.dart' as NETWORKS;
 import 'package:flutter_wicc/src/params/basesign_tx_params.dart';
 import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
-import 'package:flutter_wicc/src/wallet_utils.dart';
 import 'package:flutter_wicc/src/utils/BufferWriter.dart';
 import 'package:hex/hex.dart';
 
 class WaykiDeployContractTxParams extends BaseSignTxParams {
-  NETWORKS.NetworkType networks;
   int value;
   String srcRegId;
   String description;
@@ -48,12 +45,4 @@ class WaykiDeployContractTxParams extends BaseSignTxParams {
     print(hexStr);
     return hexStr;
   }
-
-  @override
-  Uint8List signTx() {
-    var sigHash = this.getSignatureHash();
-    signature= WaykiChain.signTx(sigHash, privateKey, this.networks);
-    return signature;
-  }
-
 }
