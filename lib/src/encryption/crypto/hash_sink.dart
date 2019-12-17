@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:typed_data';
-import 'package:flutter_wicc/src/utils/crypto/typed_buffers.dart';
+import 'package:flutter_wicc/src/encryption/crypto/typed_buffers.dart';
 
 import 'digest.dart';
 import 'utils.dart';

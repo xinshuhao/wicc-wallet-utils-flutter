@@ -10,7 +10,8 @@ class WaykiDeployContractTxParams extends BaseSignTxParams {
   String srcRegId;
   String description;
   List<int> script;
-  WaykiDeployContractTxParams.fromDictionary(WaykiTxDeployContractModel model) : super.fromDictionary(model.baseModel) {
+  WaykiDeployContractTxParams.fromDictionary(WaykiTxDeployContractModel model) :
+        super.fromDictionary(model.baseModel) {
     this.networks = model.networks;
     this.srcRegId = model.srcRegId;
     this.description = model.description;

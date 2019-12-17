@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 
-import 'package:flutter_wicc/src/utils/crypto/equality.dart';
+import 'package:flutter_wicc/src/encryption/crypto/equality.dart';
 import 'package:hex/hex.dart';
 
 /// A message digest as computed by a `Hash` or `HMAC` function.

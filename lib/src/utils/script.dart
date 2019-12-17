@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:hex/hex.dart';
 import 'package:flutter_wicc/src/encryption/bip32/src/ecurve.dart' as ecc;
-import 'constants/op.dart';
+import 'package:flutter_wicc/src/encryption/constants/op.dart';
 import 'push_data.dart' as pushData;
 import 'check_types.dart';
 Map<int, String> REVERSE_OPS = OPS.map((String string, int number) => new MapEntry(number, string));

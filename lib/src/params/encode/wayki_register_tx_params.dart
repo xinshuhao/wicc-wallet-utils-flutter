@@ -8,7 +8,8 @@ import 'package:hex/hex.dart';
 
 class WaykiRegisterTxParams extends BaseSignTxParams {
   NETWORKS.NetworkType networks;
-  WaykiRegisterTxParams.fromDictionary(WaykiTxRegisterModel model) : super.fromDictionary(model.baseModel) {
+  WaykiRegisterTxParams.fromDictionary(WaykiTxRegisterModel model) :
+        super.fromDictionary(model.baseModel) {
     this.networks =model.networks;
     userPubKey=WaykiChain.getPublicKey(privateKey, networks);
   }

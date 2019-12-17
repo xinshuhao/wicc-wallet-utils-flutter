@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'constants/op.dart';
+import 'package:flutter_wicc/src/encryption/constants/op.dart';
 class DecodedPushData {
   int opcode;
   int number;

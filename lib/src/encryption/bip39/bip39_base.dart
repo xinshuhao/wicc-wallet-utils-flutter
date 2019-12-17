@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:flutter_wicc/src/utils/crypto/sha256.dart';
+import 'package:flutter_wicc/src/encryption/crypto/sha256.dart';
 import 'package:hex/hex.dart';
 import 'utils/pbkdf2.dart';
 import 'wordlists/english.dart';

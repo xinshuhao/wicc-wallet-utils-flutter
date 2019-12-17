@@ -4,7 +4,7 @@ import 'package:flutter_wicc/src/encryption/p2pkh.dart' show P2PKH, P2PKHData;
 import 'package:flutter_wicc/src/encryption/crypto.dart' as bcrypto;
 import 'package:flutter_wicc/src/utils/check_types.dart';
 import 'package:flutter_wicc/src/utils/script.dart' as bscript;
-import 'package:flutter_wicc/src/utils/constants/op.dart';
+import 'package:flutter_wicc/src/encryption/constants/op.dart';
 import 'package:flutter_wicc/src/utils/varuint.dart' as varuint;
 
 const DEFAULT_SEQUENCE = 0xffffffff;
