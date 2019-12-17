@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 import 'package:hex/hex.dart';
 import 'package:bs58check/bs58check.dart' as bs58check;
-import 'utils/script.dart' as bscript;
-import 'ecpair.dart';
-import 'models/networks.dart';
-import 'transaction.dart';
-import 'payments/p2pkh.dart';
+import 'package:flutter_wicc/src/utils/script.dart' as bscript;
+import 'package:flutter_wicc/src/encryption/ecpair.dart';
+import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/transaction.dart';
+import 'package:flutter_wicc/src/encryption/p2pkh.dart';
 
 class TransactionBuilder {
   NetworkType network;

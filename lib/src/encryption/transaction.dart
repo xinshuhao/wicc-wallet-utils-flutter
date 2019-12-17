@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 import 'package:hex/hex.dart';
-import 'payments/p2pkh.dart' show P2PKH, P2PKHData;
-import 'crypto.dart' as bcrypto;
-import 'utils/check_types.dart';
-import 'utils/script.dart' as bscript;
-import 'utils/constants/op.dart';
-import 'utils/varuint.dart' as varuint;
+import 'package:flutter_wicc/src/encryption/p2pkh.dart' show P2PKH, P2PKHData;
+import 'package:flutter_wicc/src/encryption/crypto.dart' as bcrypto;
+import 'package:flutter_wicc/src/utils/check_types.dart';
+import 'package:flutter_wicc/src/utils/script.dart' as bscript;
+import 'package:flutter_wicc/src/utils/constants/op.dart';
+import 'package:flutter_wicc/src/utils/varuint.dart' as varuint;
 
 const DEFAULT_SEQUENCE = 0xffffffff;
 const SIGHASH_ALL = 0x01;

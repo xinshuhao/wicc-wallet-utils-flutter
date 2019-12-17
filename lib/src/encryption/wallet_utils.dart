@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:flutter_wicc/src/bip32/bitcoin_bip32.dart';
-import 'package:flutter_wicc/src/bitcoin_flutter.dart';
-import 'package:flutter_wicc/src/payments/p2pkh.dart';
+import 'bip32/bitcoin_bip32.dart';
+import 'package:flutter_wicc/src/encryption/bitcoin_flutter.dart';
+import 'package:flutter_wicc/src/encryption/p2pkh.dart';
 import 'package:flutter_wicc/src/utils/script.dart';
-import 'package:flutter_wicc/src/bip39/bip39.dart' as bip39;
+import 'bip39/bip39.dart' as bip39;
 import 'package:hex/hex.dart';
 import 'package:flutter_wicc/src/utils/util.dart';
 class WaykiChain{

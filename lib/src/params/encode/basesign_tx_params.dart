@@ -1,10 +1,10 @@
 import 'dart:typed_data';
-import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
-import 'package:flutter_wicc/src/type/wayki_tx_type.dart';
+import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
+import 'package:flutter_wicc/src/params/wayki_tx_type.dart';
 import 'package:flutter_wicc/src/utils/crypto/digest.dart';
 import 'package:flutter_wicc/src/utils/crypto/sha256.dart';
-import 'package:flutter_wicc/src/wallet_utils.dart';
-import 'package:flutter_wicc/src/models/networks.dart' as NETWORKS;
+import 'package:flutter_wicc/src/encryption/wallet_utils.dart';
+import 'package:flutter_wicc/src/params/networks.dart' as NETWORKS;
 
 abstract class BaseSignTxParams {
   NETWORKS.NetworkType networks;
@@ -12,7 +12,7 @@ abstract class BaseSignTxParams {
   Uint8List minerPubKey;
   int nValidHeight = 0;
   int fees = 10000;
-  var nTxType = WaykiTxType.TX_NONE;
+  var nTxType = 0;
   int nVersion = 1;
   Uint8List signature;
   String privateKey;

@@ -1,7 +1,7 @@
 
 import 'dart:typed_data';
-import 'package:flutter_wicc/src/params/basesign_tx_params.dart';
-import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
+import 'package:flutter_wicc/src/params/encode/basesign_tx_params.dart';
+import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
 import 'package:flutter_wicc/src/utils/BufferWriter.dart';
 import 'package:hex/hex.dart';
 
@@ -39,7 +39,7 @@ class WaykiDeployContractTxParams extends BaseSignTxParams {
     .writeRegId(srcRegId)
     .writeContractScript(script, description)
     .writeInt(fees)
-    .writeInt(signature.length)
+    .writeCompactSize(signature.length)
     .writeByte(signature);
     String hexStr = HEX.encode(write.encodeByte());
     print(hexStr);

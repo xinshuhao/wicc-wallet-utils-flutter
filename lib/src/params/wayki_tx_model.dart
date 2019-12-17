@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:flutter_wicc/src/models/networks.dart' as NETWORKS;
-import 'package:flutter_wicc/src/type/wayki_tx_type.dart';
+import 'package:flutter_wicc/src/params/networks.dart' as NETWORKS;
+import 'package:flutter_wicc/src/params/wayki_tx_type.dart';
 
 class WaykiTxBaseModel {
   Uint8List userPubKey;
@@ -18,7 +18,7 @@ class WaykiTxRegisterModel {
 
   WaykiTxRegisterModel() {
     this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.TX_REGISTERACCOUNT;
+    baseModel.nTxType = WaykiTxType.ACCOUNT_REGISTER_TX;
   }
 }
 
@@ -31,7 +31,7 @@ class WaykiTxCommonModel {
 
   WaykiTxCommonModel() {
     this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.TX_COMMON;
+    baseModel.nTxType = WaykiTxType.BCOIN_TRANSFER_TX;
   }
 }
 
@@ -45,7 +45,7 @@ class WaykiTxContractModel {
 
   WaykiTxContractModel() {
     this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.TX_CONTRACT;
+    baseModel.nTxType = WaykiTxType.LCONTRACT_INVOKE_TX;
   }
 }
 
@@ -57,7 +57,7 @@ class WaykiTxDelegateModel {
 
   WaykiTxDelegateModel() {
     this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.TX_DELEGATE;
+    baseModel.nTxType = WaykiTxType.DELEGATE_VOTE_TX;
   }
 
 }
@@ -78,7 +78,7 @@ class WaykiTxDeployContractModel {
 
   WaykiTxDeployContractModel() {
     this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.TX_DEPLOY_CONTRACT;
+    baseModel.nTxType = WaykiTxType.LCONTRACT_DEPLOY_TX;
   }
 
 }

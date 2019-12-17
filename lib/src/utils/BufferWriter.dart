@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:flutter_wicc/src/type/wayki_tx_model.dart';
+import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
 
 class BufferWriter {
   List<int> buffer;
@@ -30,7 +30,7 @@ class BufferWriter {
     List<int> bytes = new List<int>();
     var height = encodeInWicc(int.parse(lists[0]));
     var index = encodeInWicc(int.parse(lists[1]));
-    bytes.addAll(encodeInWicc(height.length + index.length));
+    this.writeCompactSize(height.length + index.length);
     bytes.addAll(height);
     bytes.addAll(index);
     buffer.addAll(bytes);
@@ -48,7 +48,7 @@ class BufferWriter {
       bytes.addAll(item.pubKey.toList());
       bytes.addAll(encodeInWicc(item.voteValue));
     }
-    buffer.addAll(encodeInWicc(funds.length));
+    this.writeCompactSize(funds.length);
     buffer.addAll(bytes);
     return this;
   }
@@ -73,7 +73,7 @@ class BufferWriter {
 
   ByteData data=new ByteData(0);
 
-  void writeCompactSize(int len){
+  BufferWriter writeCompactSize(int len){
 
     if(len<253){
      buffer.add(len);
@@ -87,7 +87,7 @@ class BufferWriter {
       buffer.add(255);
       buffer.addAll(hexToBytes(len.toRadixString(64)).reversed);
     }
-
+    return this;
   }
 
   String _BYTE_ALPHABET = "0123456789abcdef";

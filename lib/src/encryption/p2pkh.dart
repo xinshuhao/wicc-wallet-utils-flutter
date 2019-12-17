@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 import 'package:meta/meta.dart';
-import 'package:flutter_wicc/src/bip32/src/ecurve.dart' show isPoint;
+import 'bip32/src/ecurve.dart' show isPoint;
 import 'package:bs58check/bs58check.dart' as bs58check;
 
-import '../crypto.dart';
-import '../models/networks.dart';
+import 'package:flutter_wicc/src/encryption/crypto.dart';
+import 'package:flutter_wicc/src/params/networks.dart';
 import '../utils/script.dart' as bscript;
 import '../utils/constants/op.dart';
 
