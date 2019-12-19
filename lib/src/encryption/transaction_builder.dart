@@ -3,7 +3,7 @@ import 'package:hex/hex.dart';
 import 'package:bs58check/bs58check.dart' as bs58check;
 import 'package:flutter_wicc/src/utils/script.dart' as bscript;
 import 'package:flutter_wicc/src/encryption/ecpair.dart';
-import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/networks.dart';
 import 'package:flutter_wicc/src/encryption/transaction.dart';
 import 'package:flutter_wicc/src/encryption/p2pkh.dart';
 

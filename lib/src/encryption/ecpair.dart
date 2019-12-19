@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'dart:math';
 import 'bip32/src/ecurve.dart' as ecc;
 import 'bip32/src/wif.dart' as wif;
-import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/networks.dart';
 
 class ECPair {
   Uint8List _d;

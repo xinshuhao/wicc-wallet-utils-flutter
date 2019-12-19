@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter_wicc/flutter_wicc.dart';
 import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
 
 class BufferWriter {
@@ -9,7 +10,7 @@ class BufferWriter {
     buffer = new List<int>();
   }
 
-  BufferWriter writeByte(Uint8List data) {
+  BufferWriter writeBytes(Uint8List data) {
     if (data == null) return null;
     buffer.addAll(data.toList());
     return this;
@@ -20,6 +21,16 @@ class BufferWriter {
     List<int> bytes = new List<int>();
     bytes.addAll(encodeInWicc(data));
     buffer.addAll(bytes);
+    return this;
+  }
+
+  BufferWriter writeUserId(String regid,Uint8List pubkeyList) {
+   if(null!=regid&&regid.isNotEmpty) {
+     this.writeRegId(regid);
+   }else if(null!=pubkeyList){
+     this.writeCompactSize(pubkeyList.length);
+     this.writeBytes(pubkeyList);
+   }
     return this;
   }
 
@@ -62,12 +73,12 @@ class BufferWriter {
 
     BufferWriter writer=new BufferWriter();
     writer.writeCompactSize(script.length);
-    writer.writeByte(Uint8List.fromList(script).buffer.asUint8List());
+    writer.writeBytes(Uint8List.fromList(script).buffer.asUint8List());
     writer.writeCompactSize(description.length);
-    writer.writeByte(Uint8List.fromList(description.codeUnits).buffer.asUint8List());
+    writer.writeBytes(Uint8List.fromList(description.codeUnits).buffer.asUint8List());
 
     this.writeCompactSize(writer.buffer.length);
-    this.writeByte(Uint8List.fromList(writer.buffer).buffer.asUint8List());
+    this.writeBytes(Uint8List.fromList(writer.buffer).buffer.asUint8List());
     return this;
   }
 

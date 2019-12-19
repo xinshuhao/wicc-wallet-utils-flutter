@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'dart:convert';
 //import '../../src/crypto.dart';
 import 'package:flutter_wicc/src/encryption/crypto.dart';
-import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/networks.dart';
 
 import 'varuint.dart';
 //import '../../src/models/networks.dart';

@@ -10,22 +10,7 @@ void main() {
      wallet = walletManager.importWalletFromPrivateKey(privateKay);
   });
 
-  test('generate wicc testnet wallet', () { //助记词生成钱包
-    var mn ="evil idle happy pattern humor antenna digital fold glance genius wasp heart";//"raven uncle myself wedding start skate chase accuse usage often accuse blush";
-    var wallet = walletManager.importWalletFromMnemomic(mn);
-    print(wallet);
-  });
-
-  test('generate wicc testnet wallet from privatekey', () { //私钥生成地址
-    final privateKay="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
-    //"Y9sx4Y8sBAbWDAqAWytYuUnJige3ZPwKDZp1SCDqqRby1YMgRG9c";
-    // "YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
-    //"YD8R7iy7ejjqMn2Fxfqyzyzb27jfSVUmFzmXYhQS2qDZYEUXkfdA"
-    var wallet = walletManager.importWalletFromPrivateKey(privateKay);
-    print(wallet);
-  });
-
-  test("register transaction", () {//注册签名
+  test("register transaction", () {//钱包注册签名
     WaykiTxRegisterModel model=new WaykiTxRegisterModel();
     model.nValidHeight=456539;
     model.fees=10000000;
@@ -97,12 +82,12 @@ void main() {
 
   test('vertify message', () { //消息签名与验证
     var privateKey="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
-    //"Y9XMqNzseQFSK32SvMDNF9J7xz1CQmHRsmY1hMYiqZyTck8pYae3";
     final keyPair = ECPair.fromWIF(privateKey, network: wiccTestnet);
     var msg = "Waykichain";
     var msgHash=hash256(hash160(Uint8List.fromList(msg.codeUnits).buffer.asUint8List()));
-    var signMsg=keyPair.sign(msgHash);
-    var pubKey=Uint8List.fromList(HEX.decode("03145134d18bbcb1da64adb201d1234f57b3daee8bb7d0bcbe7c27b53edadcab59")).buffer.asUint8List();
+    var signMsg=keyPair.sign(msgHash);//签名后的信息
+
+    var pubKey=keyPair.publicKey;
     var ecPublicKey=ECPair.fromPublicKey(pubKey,network: wiccTestnet,compressed:true);
     var vertifySuccess= ecPublicKey.verify(msgHash, signMsg);
     assert(vertifySuccess);

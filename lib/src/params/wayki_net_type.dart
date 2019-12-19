@@ -1,4 +1,4 @@
-import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/networks.dart';
 
 final wiccTestnet = new NetworkType(
     messagePrefix: '\x18Waykichain Signed Message:\n',

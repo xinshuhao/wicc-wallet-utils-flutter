@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/networks.dart';
 import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
 
 abstract class BaseSignTxParams {

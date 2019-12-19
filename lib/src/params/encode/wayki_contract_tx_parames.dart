@@ -1,13 +1,10 @@
 
-
 import 'dart:typed_data';
 import 'package:flutter_wicc/src/encryption/crypto.dart';
-import 'package:flutter_wicc/src/params/networks.dart' as NETWORKS;
 import 'package:flutter_wicc/src/params/encode/basesign_tx_params.dart';
-import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/networks.dart';
 import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
-import 'package:flutter_wicc/src/encryption/wallet_utils.dart';
-import 'package:flutter_wicc/src/utils/BufferWriter.dart';
+import 'package:flutter_wicc/src/utils/bufferwriter.dart';
 import 'package:hex/hex.dart';
 
 class WaykiContractTxParams extends BaseSignTxParams {
@@ -25,13 +22,13 @@ class WaykiContractTxParams extends BaseSignTxParams {
     write.writeInt(nVersion);
     write.writeInt(nTxType);
     write.writeInt(nValidHeight);
-    write.writeRegId(model.srcRegId);
+    write.writeUserId(model.srcRegId,userPubKey);
     write.writeRegId(model.appId);
     write.writeInt(fees);
     write.writeInt(model.value);
     final contractByte=hexToBytes(model.contract);
     write.writeCompactSize(contractByte.length);
-    write.writeByte(contractByte);
+    write.writeBytes(contractByte);
     var hash=Sha256x2(write.encodeByte());
     return hash;
   }
@@ -43,15 +40,15 @@ class WaykiContractTxParams extends BaseSignTxParams {
     write.writeInt(nTxType);
     write.writeInt(nVersion);
     write.writeInt(nValidHeight);
-    write.writeRegId(model.srcRegId);
+    write.writeUserId(model.srcRegId,userPubKey);
     write.writeRegId(model.appId);
     write.writeInt(fees);
     write.writeInt(model.value);
     final contractByte=hexToBytes(model.contract);
     write.writeInt(contractByte.length);
-    write.writeByte(contractByte);
+    write.writeBytes(contractByte);
     write.writeCompactSize(signature.length);
-    write.writeByte(signature);
+    write.writeBytes(signature);
     String hexStr = HEX.encode(write.encodeByte());
     return hexStr;
   }

@@ -42,11 +42,7 @@ class WaykiTxType {
 
   static final WASM_CONTRACT_TX         = 100;   //!< wasm contract tx
 
-
 }
 
-class VoteOperType {
-  static final NULL_OPER = 0; //
-  static final ADD_FUND = 1; //投票
-  static final MINUS_FUND = 2; //撤销投票
-}
+final wayki_bip44path="m/44'/99999'/0'/0/0";
+

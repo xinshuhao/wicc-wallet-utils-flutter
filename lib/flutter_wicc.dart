@@ -13,7 +13,6 @@ export 'package:flutter_wicc/src/params/wayki_tx_model.dart';
 export 'package:flutter_wicc/src/params/wayki_tx_type.dart';
 export 'package:flutter_wicc/src/encryption/crypto/digest.dart';
 export 'package:flutter_wicc/src/encryption/crypto/sha256.dart';
-export 'package:flutter_wicc/src/encryption/wallet_utils.dart';
 export 'package:hex/hex.dart';
 export 'package:flutter_wicc/src/walletmanager.dart';
 export 'package:flutter_wicc/src/waykitransaction.dart';

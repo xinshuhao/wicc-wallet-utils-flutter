@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter_wicc/src/encryption/crypto.dart';
 import 'package:flutter_wicc/src/params/encode/basesign_tx_params.dart';
-import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/networks.dart';
 import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
-import 'package:flutter_wicc/src/utils/BufferWriter.dart';
+import 'package:flutter_wicc/src/utils/bufferwriter.dart';
 import 'package:hex/hex.dart';
 
 class WaykiRegisterTxParams extends BaseSignTxParams {
@@ -21,7 +21,7 @@ class WaykiRegisterTxParams extends BaseSignTxParams {
     write.writeInt(nTxType);
     write.writeInt(nValidHeight);
     write.writeInt(33);
-    write.writeByte(userPubKey);
+    write.writeBytes(userPubKey);
     write.writeInt(0);
     write.writeInt(fees);
     var hash=Sha256x2(write.encodeByte());
@@ -36,11 +36,11 @@ class WaykiRegisterTxParams extends BaseSignTxParams {
     write.writeInt(nVersion);
     write.writeInt(nValidHeight);
     write.writeInt(33);
-    write.writeByte(userPubKey);
+    write.writeBytes(userPubKey);
     write.writeInt(0);
     write.writeInt(fees);
     write.writeCompactSize(signature.length);
-    write.writeByte(signature);
+    write.writeBytes(signature);
     String hexStr = HEX.encode(write.encodeByte());
     return hexStr;
   }

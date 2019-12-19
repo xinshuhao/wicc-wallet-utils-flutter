@@ -4,7 +4,7 @@ import 'bip32/src/ecurve.dart' show isPoint;
 import 'package:bs58check/bs58check.dart' as bs58check;
 
 import 'package:flutter_wicc/src/encryption/crypto.dart';
-import 'package:flutter_wicc/src/params/networks.dart';
+import 'package:flutter_wicc/src/encryption/networks.dart';
 import '../utils/script.dart' as bscript;
 import 'package:flutter_wicc/src/encryption/constants/op.dart';
 

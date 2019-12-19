@@ -1,3 +1,4 @@
+
 import 'dart:typed_data';
 import 'package:flutter_wicc/src/encryption/crypto.dart';
 import 'package:flutter_wicc/src/params/encode/basesign_tx_params.dart';
@@ -7,9 +8,9 @@ import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
 import 'package:flutter_wicc/src/utils/bufferwriter.dart';
 import 'package:hex/hex.dart';
 
-class WaykiCommonsTxParams extends BaseSignTxParams {
+class WaykiUCoinTxParams extends BaseSignTxParams {
   WaykiTxCommonModel model;
-  WaykiCommonsTxParams(this.model) : super.fromDictionary(model);
+  WaykiUCoinTxParams(this.model) : super.fromDictionary(model);
   Uint8List userPubKey;
   @override
   Uint8List getSignatureHash(String publicKey,NetworkType netWork) {
