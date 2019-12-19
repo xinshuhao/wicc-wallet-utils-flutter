@@ -4,7 +4,6 @@ import 'package:flutter_wicc/src/params/networks.dart' as NETWORKS;
 import 'package:flutter_wicc/src/params/wayki_tx_type.dart';
 
 class WaykiTxBaseModel {
-  Uint8List userPubKey;
   Uint8List minerPubKey;
   int nValidHeight;
   int fees;
@@ -12,52 +11,48 @@ class WaykiTxBaseModel {
   String privateKey;
 }
 
-class WaykiTxRegisterModel {
-  NETWORKS.NetworkType networks;
-  WaykiTxBaseModel baseModel;
+class WaykiTxRegisterModel extends WaykiTxBaseModel{
+  //WaykiTxBaseModel baseModel;
 
   WaykiTxRegisterModel() {
-    this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.ACCOUNT_REGISTER_TX;
+//    this.baseModel = new WaykiTxBaseModel();
+    nTxType = WaykiTxType.ACCOUNT_REGISTER_TX;
   }
 }
 
-class WaykiTxCommonModel {
-  NETWORKS.NetworkType networks;
+class WaykiTxCommonModel extends WaykiTxBaseModel {
   int value;
   String srcRegId;
   String destAddr;
-  WaykiTxBaseModel baseModel;
+ // WaykiTxBaseModel baseModel;
 
   WaykiTxCommonModel() {
-    this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.BCOIN_TRANSFER_TX;
+//    this.baseModel = new WaykiTxBaseModel();
+   nTxType = WaykiTxType.BCOIN_TRANSFER_TX;
   }
 }
 
-class WaykiTxContractModel {
-  NETWORKS.NetworkType networks;
+class WaykiTxContractModel extends WaykiTxBaseModel{
   int value;
   String srcRegId;
   String appId;
   String contract;
-  WaykiTxBaseModel baseModel;
+  //WaykiTxBaseModel baseModel;
 
   WaykiTxContractModel() {
-    this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.LCONTRACT_INVOKE_TX;
+   // this.baseModel = new WaykiTxBaseModel();
+    nTxType = WaykiTxType.LCONTRACT_INVOKE_TX;
   }
 }
 
-class WaykiTxDelegateModel {
-  NETWORKS.NetworkType networks;
+class WaykiTxDelegateModel extends WaykiTxBaseModel {
   String srcRegId;
-  List<OperVoteFund> listDunds;
-  WaykiTxBaseModel baseModel;
+  List<OperVoteFund> listfunds;
+  //WaykiTxBaseModel baseModel;
 
   WaykiTxDelegateModel() {
-    this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.DELEGATE_VOTE_TX;
+    //this.baseModel = new WaykiTxBaseModel();
+    nTxType = WaykiTxType.DELEGATE_VOTE_TX;
   }
 
 }
@@ -69,16 +64,15 @@ class OperVoteFund{
 }
 
 
-class WaykiTxDeployContractModel {
-  NETWORKS.NetworkType networks;
+class WaykiTxDeployContractModel extends WaykiTxBaseModel{
   String srcRegId;
   String description;
   List<int> script;
-  WaykiTxBaseModel baseModel;
+  //WaykiTxBaseModel baseModel;
 
   WaykiTxDeployContractModel() {
-    this.baseModel = new WaykiTxBaseModel();
-    baseModel.nTxType = WaykiTxType.LCONTRACT_DEPLOY_TX;
+    //this.baseModel = new WaykiTxBaseModel();
+   nTxType = WaykiTxType.LCONTRACT_DEPLOY_TX;
   }
 
 }

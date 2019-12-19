@@ -1,21 +1,21 @@
 import 'dart:typed_data';
-import 'package:flutter_wicc/src/params/networks.dart' as NETWORKS;
+import 'package:flutter_wicc/src/encryption/crypto.dart';
 import 'package:flutter_wicc/src/params/encode/basesign_tx_params.dart';
-import 'package:flutter_wicc/src/encryption/wallet_utils.dart';
+import 'package:flutter_wicc/src/params/networks.dart';
 import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
 import 'package:flutter_wicc/src/utils/BufferWriter.dart';
 import 'package:hex/hex.dart';
 
 class WaykiRegisterTxParams extends BaseSignTxParams {
-  NETWORKS.NetworkType networks;
-  WaykiRegisterTxParams.fromDictionary(WaykiTxRegisterModel model) :
-        super.fromDictionary(model.baseModel) {
-    this.networks =model.networks;
-    userPubKey=WaykiChain.getPublicKey(privateKey, networks);
-  }
+
+  Uint8List userPubKey;
+
+  WaykiRegisterTxParams(WaykiTxRegisterModel model) :super.fromDictionary(model);
 
   @override
-  Uint8List getSignatureHash() {
+  Uint8List getSignatureHash(String publicKey,NetworkType netWork) {
+    networkType=netWork;
+    userPubKey=HEX.decode(publicKey);
     BufferWriter write=new BufferWriter();
     write.writeInt(nVersion);
     write.writeInt(nTxType);
@@ -29,7 +29,8 @@ class WaykiRegisterTxParams extends BaseSignTxParams {
   }
 
   @override
-  String serializeTx() {
+  String serializeTx(Uint8List array) {
+    this.signature=array;
     BufferWriter write=new BufferWriter();
     write.writeInt(nTxType);
     write.writeInt(nVersion);
