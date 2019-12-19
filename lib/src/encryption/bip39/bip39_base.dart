@@ -46,13 +46,14 @@ Uint8List _randomBytes(int size) {
 }
 String generateMnemonic({
   int strength = 128,
-  RandomBytes randomBytes = _randomBytes
+  RandomBytes randomBytes = _randomBytes,
+  List<String> wordlist
 }) {
   assert(strength % 32 == 0);
   final entropy = randomBytes(strength ~/ 8);
-  return entropyToMnemonic(HEX.encode(entropy));
+  return entropyToMnemonic(HEX.encode(entropy),wordlist);
 }
-String entropyToMnemonic(String entropyString) {
+String entropyToMnemonic(String entropyString,List<String> wordStrs) {
   final entropy = HEX.decode(entropyString);
   if (entropy.length < 16) {
     throw ArgumentError(_INVALID_ENTROPY);
@@ -71,7 +72,7 @@ String entropyToMnemonic(String entropyString) {
       .allMatches(bits)
       .map((match) => match.group(0))
       .toList(growable: false);
-  List<String> wordlist = WORDLIST;
+  List<String> wordlist = wordStrs;
   String words = chunks.map((binary) => wordlist[_binaryToByte(binary)]).join(' ');
   return words;
 }
@@ -84,20 +85,20 @@ String mnemonicToSeedHex(String mnemonic) {
     return byte.toRadixString(16).padLeft(2, '0');
   }).join('');
 }
-bool validateMnemonic(String mnemonic) {
+bool validateMnemonic(String mnemonic,List<String> words) {
   try {
-    mnemonicToEntropy(mnemonic);
+    mnemonicToEntropy(mnemonic,words);
   } catch (e) {
     return false;
   }
   return true;
 }
-String mnemonicToEntropy (mnemonic) {
+String mnemonicToEntropy (mnemonic, List<String> wordStrs) {
   var words = mnemonic.split(' ');
   if (words.length % 3 != 0) {
     throw new ArgumentError(_INVALID_MNEMONIC);
   }
-  final wordlist = WORDLIST;
+  final wordlist = wordStrs;
     // convert word indices to 11 bit binary strings
     final bits = words.map((word) {
       final index = wordlist.indexOf(word);

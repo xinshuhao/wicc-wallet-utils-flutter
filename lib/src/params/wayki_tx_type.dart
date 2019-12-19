@@ -46,3 +46,8 @@ class WaykiTxType {
 
 final wayki_bip44path="m/44'/99999'/0'/0/0";
 
+enum Language{
+  ENGLISH,
+  CHINESE
+}
+

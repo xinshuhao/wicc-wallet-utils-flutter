@@ -4,7 +4,7 @@ export  'dart:io';
 export 'dart:typed_data';
 export 'package:flutter_wicc/src/encryption/ecpair.dart';
 export 'package:flutter_wicc/src/params/encode/deploy_contract_tx_param.dart';
-export 'package:flutter_wicc/src/params/encode/wayki_common_tx_params.dart';
+export 'package:flutter_wicc/src/params/encode/wayki_bcoin_tx_params.dart';
 export 'package:flutter_wicc/src/params/encode/wayki_contract_tx_parames.dart';
 export 'package:flutter_wicc/src/params/encode/wayki_delegate_tx_parames.dart';
 export 'package:flutter_wicc/src/params/encode/wayki_register_tx_params.dart';

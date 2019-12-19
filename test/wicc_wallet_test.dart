@@ -8,12 +8,13 @@ void main() {
   });
 
   test('generate mnemonic', () { //助记词生成
-    var mn = walletManager.randomMnemonic();
+    var mn = walletManager.randomMnemonic(Language.CHINESE);
     print(mn);
   });
 
   test('generate wicc testnet wallet', () { //助记词生成钱包
-    var mn ="evil idle happy pattern humor antenna digital fold glance genius wasp heart";//"raven uncle myself wedding start skate chase accuse usage often accuse blush";
+    var mn ="evil idle happy pattern humor antenna digital fold glance genius wasp heart";
+    //"险 奥 瘦 白 期 龄 黑 奉 养 由 窗 估";
     var wallet = walletManager.importWalletFromMnemomic(mn);
     print(wallet);
   });

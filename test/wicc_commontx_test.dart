@@ -28,7 +28,7 @@ void main() {
     map.value=100000000;
     map.destAddr="wh82HNEDZkZP2eVAS5t7dDxmJWqyx9gr65";
     map.srcRegId="441753-2";
-    WaykiCommonsTxParams params= WaykiCommonsTxParams(map);
+    WaykiBCoinTxParams params= WaykiBCoinTxParams(map);
     WaykiTransaction tx= WaykiTransaction(params,wallet);
     print(tx.genRawTx());
   });
