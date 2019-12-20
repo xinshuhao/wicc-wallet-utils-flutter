@@ -82,14 +82,14 @@ void main() {
 
   test('sign ucoin transfer', () { //多币种转账
     WaykiUCoinTxModel map=new WaykiUCoinTxModel();
-    map.nValidHeight=638097;
-    map.fees=100660;
-    map.privateKey="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
-    map.srcRegId="441753-2";
+    map.nValidHeight=1987722;
+    map.fees=1000000;
+    map.privateKey="Y6J4aK6Wcs4A3Ex4HXdfjJ6ZsHpNZfjaS4B9w7xqEnmFEYMqQd13";
+    map.srcRegId="32714-5";
     map.feeSymbol="WICC";
     Dest dest=new Dest();
-    dest.amount=100000000;
-    dest.destAddr="wh82HNEDZkZP2eVAS5t7dDxmJWqyx9gr65";
+    dest.amount=10000;
+    dest.destAddr="wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4";
     dest.coinSymbol="WICC";
     map.dests=new List<Dest>();
     map.dests.add(dest);

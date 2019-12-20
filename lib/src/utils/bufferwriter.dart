@@ -21,6 +21,7 @@ class BufferWriter {
     if (dests == null) return this;
     this.writeCompactSize(dests.length);
     dests.forEach((f)=>{
+        this.writeCompactSize(bs58check.decode(f.destAddr).sublist(1).length),
         this.writeBytes(bs58check.decode(f.destAddr).sublist(1)),
         this.writeString(f.coinSymbol),
         this.writeInt(f.amount)
