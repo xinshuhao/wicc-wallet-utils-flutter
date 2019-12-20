@@ -72,13 +72,17 @@ class WaykiTxDeployContractModel extends WaykiTxBaseModel{
 }
 
 class WaykiUCoinTxModel extends WaykiTxBaseModel {
-  int value;
-  String srcRegId;
-  String destAddr;
-  String coinSymbol;
   String feeSymbol;
+  String srcRegId;
+  List<Dest> dests;
   String memo;
-  WaykiTxCommonModel() {
+  WaykiUCoinTxModel() {
     nTxType = WaykiTxType.UCOIN_TRANSFER_TX;
   }
+}
+
+class Dest{
+  String coinSymbol;
+  int amount;
+  String destAddr;
 }

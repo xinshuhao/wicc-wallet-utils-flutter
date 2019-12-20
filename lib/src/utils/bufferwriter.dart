@@ -1,7 +1,6 @@
 import 'dart:typed_data';
-
-import 'package:flutter_wicc/flutter_wicc.dart';
 import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
+import 'package:bs58check/bs58check.dart' as bs58check;
 
 class BufferWriter {
   List<int> buffer;
@@ -10,8 +9,28 @@ class BufferWriter {
     buffer = new List<int>();
   }
 
+  BufferWriter writeString(String data) {
+    if (data == null) return this;
+    var lists=Uint8List.fromList(data.codeUnits);
+    this.writeCompactSize(lists.length);
+    this.writeBytes(lists);
+    return this;
+  }
+
+  BufferWriter writeDests(List<Dest> dests) {
+    if (dests == null) return this;
+    this.writeCompactSize(dests.length);
+    dests.forEach((f)=>{
+        this.writeBytes(bs58check.decode(f.destAddr).sublist(1)),
+        this.writeString(f.coinSymbol),
+        this.writeInt(f.amount)
+    }
+    );
+    return this;
+  }
+
   BufferWriter writeBytes(Uint8List data) {
-    if (data == null) return null;
+    if (data == null) return this;
     buffer.addAll(data.toList());
     return this;
   }

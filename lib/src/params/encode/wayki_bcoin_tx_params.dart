@@ -33,7 +33,6 @@ class WaykiBCoinTxParams extends BaseSignTxParams {
 
   @override
   String serializeTx(Uint8List array) {
-    signature=array;
     final restored=new P2PKH(data: new P2PKHData(address: model.destAddr),network: networkType);
     var destAddress=restored.data.hash;
     BufferWriter write=new BufferWriter();
@@ -46,8 +45,8 @@ class WaykiBCoinTxParams extends BaseSignTxParams {
     write.writeInt(fees);
     write.writeInt(model.value);
     write.writeInt(0);
-    write.writeCompactSize(signature.length);
-    write.writeBytes(signature);
+    write.writeCompactSize(array.length);
+    write.writeBytes(array);
     String hexStr = HEX.encode(write.encodeByte());
     return hexStr;
   }

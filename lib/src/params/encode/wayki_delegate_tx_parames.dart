@@ -29,7 +29,6 @@ class WaykiDelegateTxParams extends BaseSignTxParams {
 
   @override
   String serializeTx(Uint8List array) {
-    signature=array;
     BufferWriter write=new BufferWriter();
     write.writeInt(nTxType);
     write.writeInt(nVersion);
@@ -37,8 +36,8 @@ class WaykiDelegateTxParams extends BaseSignTxParams {
     write.writeUserId(model.srcRegId,userPubkey);
     write.writeFunds(model.listfunds);
     write.writeInt(fees);
-    write.writeCompactSize(signature.length);
-    write.writeBytes(signature);
+    write.writeCompactSize(array.length);
+    write.writeBytes(array);
     String hexStr = HEX.encode(write.encodeByte());
     return hexStr;
   }

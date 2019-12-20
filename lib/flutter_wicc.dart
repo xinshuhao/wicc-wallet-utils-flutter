@@ -18,3 +18,4 @@ export 'package:flutter_wicc/src/walletmanager.dart';
 export 'package:flutter_wicc/src/waykitransaction.dart';
 export 'package:flutter_wicc/src/encryption/crypto.dart';
 export 'package:flutter_wicc/src/wallet.dart';
+export 'package:flutter_wicc/src/params/encode/wayki_ucoin_tx_parames.dart';

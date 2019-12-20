@@ -80,6 +80,25 @@ void main() {
     print(tx.genRawTx());
   });
 
+  test('sign ucoin transfer', () { //多币种转账
+    WaykiUCoinTxModel map=new WaykiUCoinTxModel();
+    map.nValidHeight=638097;
+    map.fees=100660;
+    map.privateKey="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
+    map.srcRegId="441753-2";
+    map.feeSymbol="WICC";
+    Dest dest=new Dest();
+    dest.amount=100000000;
+    dest.destAddr="wh82HNEDZkZP2eVAS5t7dDxmJWqyx9gr65";
+    dest.coinSymbol="WICC";
+    map.dests=new List<Dest>();
+    map.dests.add(dest);
+    map.memo="转账";
+    WaykiUCoinTxParams params= WaykiUCoinTxParams(map);
+    WaykiTransaction tx= WaykiTransaction(params,wallet);
+    print(tx.genRawTx());
+  });
+
   test('vertify message', () { //消息签名与验证
     var privateKey="YB1ims24GnRCdrB8TJsiDrxos4S5bNS58qetjyFWhSDyxT9phCEa";
     final keyPair = ECPair.fromWIF(privateKey, network: wiccTestnet);
