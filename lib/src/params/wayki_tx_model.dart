@@ -110,3 +110,25 @@ class WaykiCdpStakeTxModel extends WaykiTxBaseModel {
     nTxType = WaykiTxType.CDP_STAKE_TX;
   }
 }
+
+class WaykiCdpRedeemTxModel extends WaykiTxBaseModel {
+  String feeSymbol;
+  String srcRegId;
+  String cdpTxhash;
+  int sCoinsToRepay;
+  Map<String,int> assetMap;
+  WaykiUCoinTxModel() {
+    nTxType = WaykiTxType.CDP_REDEEM_TX;
+  }
+}
+
+class WaykiCdpLiquidateTxModel extends WaykiTxBaseModel {
+  String feeSymbol;
+  String srcRegId;
+  String cdpTxhash;
+  String liquidateAssetSymbol;
+  int sCoinsToLiquidate;
+  WaykiUCoinTxModel() {
+    nTxType = WaykiTxType.CDP_LIQUIDATE_TX;
+  }
+}
