@@ -30,6 +30,17 @@ class BufferWriter {
     return this;
   }
 
+  BufferWriter writeAssetMap(Map<String,int> map) {
+    if (map == null) return this;
+    this.writeCompactSize(map.length);
+    map.forEach((k,v)=>{
+         this.writeString(k),
+         this.writeInt(v),
+        }
+    );
+    return this;
+  }
+
   BufferWriter writeBytes(Uint8List data) {
     if (data == null) return this;
     buffer.addAll(data.toList());

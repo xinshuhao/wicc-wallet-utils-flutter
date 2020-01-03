@@ -86,3 +86,27 @@ class Dest{
   int amount;
   String destAddr;
 }
+
+class WaykiUCoinContractTxModel extends WaykiTxBaseModel {
+  String feeSymbol;
+  String srcRegId;
+  String coinSymbol;
+  String contract;
+  String appId;
+  int amount;
+  WaykiUCoinTxModel() {
+    nTxType = WaykiTxType.UCONTRACT_INVOKE_TX;
+  }
+}
+
+class WaykiCdpStakeTxModel extends WaykiTxBaseModel {
+  String feeSymbol;
+  String srcRegId;
+  String cdpTxhash;
+  Map<String,int> assetMap;
+  String sCoinSymbol;
+  int sCoinToMint;
+  WaykiUCoinTxModel() {
+    nTxType = WaykiTxType.CDP_STAKE_TX;
+  }
+}
