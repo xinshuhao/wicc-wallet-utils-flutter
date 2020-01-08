@@ -94,7 +94,7 @@ class WaykiUCoinContractTxModel extends WaykiTxBaseModel {
   String contract;
   String appId;
   int amount;
-  WaykiUCoinTxModel() {
+  WaykiUCoinContractTxModel() {
     nTxType = WaykiTxType.UCONTRACT_INVOKE_TX;
   }
 }
@@ -106,7 +106,7 @@ class WaykiCdpStakeTxModel extends WaykiTxBaseModel {
   Map<String,int> assetMap;
   String sCoinSymbol;
   int sCoinToMint;
-  WaykiUCoinTxModel() {
+  WaykiCdpStakeTxModel() {
     nTxType = WaykiTxType.CDP_STAKE_TX;
   }
 }
@@ -117,7 +117,7 @@ class WaykiCdpRedeemTxModel extends WaykiTxBaseModel {
   String cdpTxhash;
   int sCoinsToRepay;
   Map<String,int> assetMap;
-  WaykiUCoinTxModel() {
+  WaykiCdpRedeemTxModel() {
     nTxType = WaykiTxType.CDP_REDEEM_TX;
   }
 }
@@ -128,7 +128,76 @@ class WaykiCdpLiquidateTxModel extends WaykiTxBaseModel {
   String cdpTxhash;
   String liquidateAssetSymbol;
   int sCoinsToLiquidate;
-  WaykiUCoinTxModel() {
+  WaykiCdpLiquidateTxModel() {
     nTxType = WaykiTxType.CDP_LIQUIDATE_TX;
   }
+}
+
+class WaykiDexTxModel extends WaykiTxBaseModel {
+  String srcRegId;
+  String feeSymbol;
+  String coinSymbol;
+  String assetSymbol;
+  int assetAmount;
+  int price;
+  WaykiDexTxModel(EnumDexTxType txType) {
+    switch(txType){
+      case EnumDexTxType.DEX_LIMIT_BUY_ORDER_TX:
+        nTxType = WaykiTxType.DEX_LIMIT_BUY_ORDER_TX;
+        break;
+      case EnumDexTxType.DEX_LIMIT_SELL_ORDER_TX:
+        nTxType = WaykiTxType.DEX_LIMIT_SELL_ORDER_TX;
+        break;
+      case EnumDexTxType.DEX_MARKET_BUY_ORDER_TX:
+        nTxType = WaykiTxType.DEX_MARKET_BUY_ORDER_TX;
+        break;
+      case EnumDexTxType.DEX_MARKET_SELL_ORDER_TX:
+        nTxType = WaykiTxType.DEX_MARKET_SELL_ORDER_TX;
+        break;
+    }
+
+  }
+}
+
+class WaykiDexCancelTxModel extends WaykiTxBaseModel {
+  String orderId;
+  String srcRegId;
+  String feeSymbol;
+  WaykiDexCancelTxModel() {
+    nTxType = WaykiTxType.DEX_CANCEL_ORDER_TX;
+  }
+}
+
+class WaykiAssetIssueTxModel extends WaykiTxBaseModel {
+  String orderId;
+  String srcRegId;
+  String feeSymbol;
+  CAsset cAsset;
+  WaykiAssetIssueTxModel() {
+    nTxType = WaykiTxType.ASSET_ISSUE_TX;
+  }
+}
+
+class CAsset{
+  String symbol;
+  String ownerRegid;
+  String name;
+  int totalSupply;
+  bool minTable;
+}
+
+class WaykiAssetUpdateTxModel extends WaykiTxBaseModel {
+  String orderId;
+  String srcRegId;
+  String feeSymbol;
+  String assetSymbol;
+  AssetUpdateData update;
+  WaykiAssetIssueTxModel() {
+    nTxType = WaykiTxType.ASSET_ISSUE_TX;
+  }
+}
+
+class AssetUpdateData{
+  AssetUpdateType enumAsset;
+  var value;
 }

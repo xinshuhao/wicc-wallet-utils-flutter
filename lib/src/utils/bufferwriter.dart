@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter_wicc/src/params/wayki_tx_model.dart';
 import 'package:bs58check/bs58check.dart' as bs58check;
+import 'package:flutter_wicc/src/params/wayki_tx_type.dart';
 
 class BufferWriter {
   List<int> buffer;
@@ -38,6 +39,36 @@ class BufferWriter {
          this.writeInt(v),
         }
     );
+    return this;
+  }
+
+  BufferWriter writeAsset(CAsset asset) {
+    var mintable =0;
+    if(asset.minTable){ mintable= 1 ;}
+    this.writeString(asset.symbol);
+    this.writeRegId(asset.ownerRegid);
+    this.writeString(asset.name);
+    this.writeInt(mintable);
+    this.writeInt(asset.totalSupply);
+    return this;
+  }
+
+  BufferWriter upDateAsset(AssetUpdateData updateData) {
+    switch(updateData.enumAsset){
+
+      case AssetUpdateType.OWNER_UID:
+        this.writeInt(1);
+        this.writeRegId(updateData.value.toString());
+        break;
+      case AssetUpdateType.NAME:
+        this.writeInt(2);
+        this.writeString(updateData.value.toString());
+        break;
+      case AssetUpdateType.MINT_AMOUNT:
+        this.writeInt(3);
+        this.writeInt(updateData.value);
+        break;
+    }
     return this;
   }
 

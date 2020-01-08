@@ -51,3 +51,16 @@ enum Language{
   CHINESE
 }
 
+enum EnumDexTxType{
+  DEX_LIMIT_BUY_ORDER_TX,
+  DEX_LIMIT_SELL_ORDER_TX,
+  DEX_MARKET_BUY_ORDER_TX,
+  DEX_MARKET_SELL_ORDER_TX
+}
+
+enum  AssetUpdateType{
+   OWNER_UID,//1
+   NAME,//2
+   MINT_AMOUNT,//3
+}
+
